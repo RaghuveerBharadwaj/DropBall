@@ -186,7 +186,7 @@ const moveWalls = () => {
     posY += .1
   }
   if (score === 10) {
-    render.options.background = 'grey'
+    render.options.background = 'lightgreen'
     posY += .1
   }
   if (score === 15) {
