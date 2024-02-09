@@ -1,12 +1,12 @@
 /**
-*
-* Flappy Bird Game
-* 
-* Use spacebar or click to jump and avoid walls
-*
-*/
+ *
+ * Flappy Bird Game
+ *
+ * Use spacebar or click to jump and avoid walls
+ *
+ */
 
-/* ===================================================== 
+/* =====================================================
  * Setup Matter Engine
  * ================================================== */
 
@@ -26,7 +26,7 @@ let width;
 let height;
 
 function setupMatter() {
-  element = document.getElementById('main');
+  element = document.getElementById("main");
   pixelRatio = window.devicePixelRatio || 1;
   width = window.innerWidth;
   height = window.innerHeight;
@@ -44,7 +44,7 @@ function setupMatter() {
       width: width,
       height: height,
       pixelRatio: pixelRatio,
-      background: 'orange',
+      background: "orange",
       hasBounds: false,
       enabled: false,
       wireframes: false,
@@ -63,24 +63,24 @@ function setupMatter() {
       showVertexNumbers: false,
       showConvexHulls: false,
       showInternalEdges: false,
-      showMousePosition: false
-    }
+      showMousePosition: false,
+    },
   });
 }
 
-/* ===================================================== 
+/* =====================================================
  * Event Listener and Handlers
  * ================================================== */
 
 function addEventListeners() {
-  window.addEventListener('click', handleClick, false);
-  window.addEventListener('touchstart', handleTouchstart, false);
-  window.addEventListener('keydown', handleKeydown, false);
-  window.addEventListener('resize', handleResize, false);
+  window.addEventListener("click", handleClick, false);
+  window.addEventListener("touchstart", handleTouchstart, false);
+  window.addEventListener("keydown", handleKeydown, false);
+  window.addEventListener("resize", handleResize, false);
 }
 
 function handleResize() {
-  window.location.reload()
+  window.location.reload();
 }
 
 function handleKeydown(event) {
@@ -97,10 +97,10 @@ function handleKeydown(event) {
 }
 
 function handleTouchstart(event) {
-  if (event.touches[0].clientX <= width/2) {
+  if (event.touches[0].clientX <= width / 2) {
     goLeft();
   }
-  if (event.touches[0].clientX > width/2) {
+  if (event.touches[0].clientX > width / 2) {
     goRight();
   }
   // bumpBird();
@@ -111,7 +111,7 @@ function handleClick(event) {
   // bumpBird();
 }
 
-/* ===================================================== 
+/* =====================================================
  * The Bird Class
  * ================================================== */
 
@@ -122,8 +122,8 @@ let Bird = function () {
   this.static = true;
   this.body = Bodies.circle(this.x, this.y, this.r, this.static);
   this.body.restitution = 0.5;
-  this.body.render.fillStyle = 'white';
-  this.body.render.strokeStyle = 'white';
+  this.body.render.fillStyle = "white";
+  this.body.render.strokeStyle = "white";
 };
 
 Bird.prototype.addBird = function () {
@@ -135,27 +135,31 @@ Bird.prototype.removeBird = function () {
 };
 
 Bird.prototype.setHit = function () {
-  this.body.render.fillStyle = 'tomato';
-  this.body.render.strokeStyle = 'red';
-}
+  this.body.render.fillStyle = "tomato";
+  this.body.render.strokeStyle = "red";
+};
 
-/* ===================================================== 
+/* =====================================================
  * The Walls
  * ================================================== */
 
 function createWall() {
   let h = 10;
   let w = width - 150;
-  let x5 = getRandomIntInclusive(120, width - 200)
+  let x5 = getRandomIntInclusive(120, width - 200);
 
   let wall = [
-  // Bodies.rectangle(x2, 2 * height/5, w, h, { isStatic: true }),
-  // Bodies.rectangle(x3, 3 * height/5, w, h, { isStatic: true }),
-  // Bodies.rectangle(x4, 4 * height/5, w, h, { isStatic: true }),
-  Bodies.rectangle(x5, height, w, h, { isStatic: true, chamfer: {radius: 5} })]
+    // Bodies.rectangle(x2, 2 * height/5, w, h, { isStatic: true }),
+    // Bodies.rectangle(x3, 3 * height/5, w, h, { isStatic: true }),
+    // Bodies.rectangle(x4, 4 * height/5, w, h, { isStatic: true }),
+    Bodies.rectangle(x5, height, w, h, {
+      isStatic: true,
+      chamfer: { radius: 5 },
+    }),
+  ];
   // };
   // add body to walls array so the wall's position will be updated on each loop
-  walls = [...walls, ...wall]
+  walls = [...walls, ...wall];
 
   World.add(engine.world, [...walls, ...wall]);
 }
@@ -163,12 +167,15 @@ function createWall() {
 function createNewWall() {
   let h = 10;
   let w = width - 150;
-  let x5 = getRandomIntInclusive(0, width)
+  let x5 = getRandomIntInclusive(0, width);
 
-  let wall = Bodies.rectangle(x5, height, w, h, { isStatic: true, chamfer:  {radius: 5} })
+  let wall = Bodies.rectangle(x5, height, w, h, {
+    isStatic: true,
+    chamfer: { radius: 5 },
+  });
   // };
   // add body to walls array so the wall's position will be updated on each loop
-  walls.push(wall)
+  walls.push(wall);
 
   World.add(engine.world, [...walls]);
 }
@@ -179,57 +186,52 @@ function removeWall() {
 }
 
 const moveWalls = () => {
-
-  let posY = 1
+  let posY = 1;
   if (score === 5) {
-    render.options.background = 'skyblue'
-    posY += .1
+    render.options.background = "skyblue";
+    posY += 0.1;
   }
   if (score === 10) {
-    render.options.background = 'lightgreen'
-    posY += .1
+    render.options.background = "lightgreen";
+    posY += 0.1;
   }
   if (score === 15) {
-    render.options.background = 'lightgrey'
-    posY += .1
+    render.options.background = "lightgrey";
+    posY += 0.1;
   }
   if (score === 20) {
-    render.options.background = 'pink'
-    posY += .1
+    render.options.background = "pink";
+    posY += 0.1;
   }
   if (score === 25) {
-    render.options.background = 'purple'
-    posY += .1
+    render.options.background = "purple";
+    posY += 0.1;
   }
   if (score === 30) {
-    render.options.background = 'red'
-    posY += .1
+    render.options.background = "red";
+    posY += 0.1;
   }
-  
+
   if (collision || !start) return;
-  
+
   walls.forEach((wall, i) => {
-    // point to translate the wall 
+    // point to translate the wall
     let t = { x: 0, y: -posY };
     Body.translate(wall, t);
     // remove the wall when it's out of view
 
-    if (walls[walls.length -1].position.y < 4 * height / 5) {
+    if (walls[walls.length - 1].position.y < (4 * height) / 5) {
       createNewWall();
       increaseScore(1);
     }
 
-    if (walls[walls.length -1].position.y < 0) {
-      removeWall()
+    if (walls[walls.length - 1].position.y < 0) {
+      removeWall();
     }
-
   });
+};
 
-}
-
-
-
-/* ===================================================== 
+/* =====================================================
  * The Game Bodies
  * ================================================== */
 
@@ -246,25 +248,30 @@ function createBird() {
 }
 
 function createGround() {
-
-  let left = Bodies.rectangle(0, height/2, 20, height, { isStatic: true });
-  let right = Bodies.rectangle(width, height/2, 20, height, { isStatic: true });
+  let left = Bodies.rectangle(0, height / 2, 20, height, { isStatic: true });
+  let right = Bodies.rectangle(width, height / 2, 20, height, {
+    isStatic: true,
+  });
 
   World.add(engine.world, [left, right]);
 }
-let wallTop, wallBottom
+let wallTop, wallBottom;
 const createTopWall = () => {
-  wallTop = Bodies.rectangle(width/2, 0, width, 20, { isStatic: true, label: 'dead' });
-  wallBottom = Bodies.rectangle(width/2, height, width, 20, { isStatic: true, label: 'dead' });
+  wallTop = Bodies.rectangle(width / 2, 0, width, 20, {
+    isStatic: true,
+    label: "dead",
+  });
+  wallBottom = Bodies.rectangle(width / 2, height, width, 20, {
+    isStatic: true,
+    label: "dead",
+  });
 
   World.add(engine.world, [wallTop, wallBottom]);
-
-}
-
+};
 
 function bumpBird() {
   // Applies an upward force to the bird
-  // TODO: need to limit the height, check if   
+  // TODO: need to limit the height, check if
   // the body is on screen before bumping again
   // or alternatively have a ceiling that you hit
   if (collision || !start) return;
@@ -272,14 +279,14 @@ function bumpBird() {
   // Body to apply force to
   let b = bird.body;
 
-  // Position to apply Force is at  
+  // Position to apply Force is at
   // the birds current position
   let p = bird.body.position;
 
   // Force vector to be applied
   let f = {
     x: 0,
-    y: -0.03
+    y: -0.03,
   };
 
   Body.applyForce(b, p, f);
@@ -287,7 +294,7 @@ function bumpBird() {
 
 function goLeft() {
   // Applies an upward force to the bird
-  // TODO: need to limit the height, check if   
+  // TODO: need to limit the height, check if
   // the body is on screen before bumping again
   // or alternatively have a ceiling that you hit
   if (collision || !start) return;
@@ -295,14 +302,14 @@ function goLeft() {
   // Body to apply force to
   let b = bird.body;
 
-  // Position to apply Force is at  
+  // Position to apply Force is at
   // the birds current position
   let p = bird.body.position;
 
   // Force vector to be applied
   let f = {
     x: -0.01,
-    y: 0
+    y: 0,
   };
 
   Body.applyForce(b, p, f);
@@ -310,7 +317,7 @@ function goLeft() {
 
 function goRight() {
   // Applies an upward force to the bird
-  // TODO: need to limit the height, check if   
+  // TODO: need to limit the height, check if
   // the body is on screen before bumping again
   // or alternatively have a ceiling that you hit
   if (collision || !start) return;
@@ -318,20 +325,20 @@ function goRight() {
   // Body to apply force to
   let b = bird.body;
 
-  // Position to apply Force is at  
+  // Position to apply Force is at
   // the birds current position
   let p = bird.body.position;
 
   // Force vector to be applied
   let f = {
     x: 0.01,
-    y: 0
+    y: 0,
   };
 
   Body.applyForce(b, p, f);
 }
 
-/* ===================================================== 
+/* =====================================================
  * The Game
  * ================================================== */
 
@@ -343,45 +350,43 @@ function runMatter() {
   // Listeners for the game
 
   // Update the walls when the engine updates
-  Events.on(engine, 'tick', moveWalls);
-  Events.on(engine, 'tick', ifCollide);
-
+  Events.on(engine, "tick", moveWalls);
+  Events.on(engine, "tick", ifCollide);
 }
 // Collision Event ends the game :-(
-  const ifCollide = () => {
-    const collisioning = Matter.SAT.collides(bird.body, wallBottom);
-    if (collisioning.collided) {
-        endGame()
-        // do something
-    }
-    const collisioing = Matter.SAT.collides(bird.body, wallTop);
-    if (collisioing.collided) {
-        endGame()
-        // do something
-    }
-}
+const ifCollide = () => {
+  const collisioning = Matter.SAT.collides(bird.body, wallBottom);
+  if (collisioning.collided) {
+    endGame();
+    // do something
+  }
+  const collisioing = Matter.SAT.collides(bird.body, wallTop);
+  if (collisioing.collided) {
+    endGame();
+    // do something
+  }
+};
 
 function startGame() {
   start = true;
-  engine.world.gravity.y = 0.6;
+  engine.world.gravity.y = 0.8;
   // set the bird to static at first
-  startButton.style.display = 'none';
+  startButton.style.display = "none";
 }
 
 function endGame() {
   collision = false;
-  Events.off(engine, 'tick', moveWalls);
+  Events.off(engine, "tick", moveWalls);
   bird.setHit();
 
-  fail.style.display = 'block';
+  fail.style.display = "block";
 }
 
 function resetGame() {
-  window.location.reload()
+  window.location.reload();
 }
 
-
-/* ===================================================== 
+/* =====================================================
  * The GUI
  * ================================================== */
 
@@ -392,19 +397,19 @@ let resetButton;
 let fail;
 
 function setupGUI() {
-  scoreDisplay = document.getElementById('score');
+  scoreDisplay = document.getElementById("score");
   scoreDisplay.innerText = score;
 
-  gui = document.getElementById('gui');
+  gui = document.getElementById("gui");
 
-  startButton = document.getElementById('start');
-  resetButton = document.getElementById('reset');
-  fail = document.getElementById('fail');
-  fail.style.display = 'none';
+  startButton = document.getElementById("start");
+  resetButton = document.getElementById("reset");
+  fail = document.getElementById("fail");
+  fail.style.display = "none";
 
   // Button listeners
-  startButton.addEventListener('click', startGame, false);
-  resetButton.addEventListener('click', resetGame, false);
+  startButton.addEventListener("click", startGame, false);
+  resetButton.addEventListener("click", resetGame, false);
 }
 
 function resetScore() {
@@ -417,7 +422,7 @@ function increaseScore(points) {
   scoreDisplay.innerText = score;
 }
 
-/* ===================================================== 
+/* =====================================================
  * Utilities
  * ================================================== */
 
@@ -425,13 +430,12 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-/* ===================================================== 
+/* =====================================================
  * Kickoff
  * ================================================== */
 
 // Initializes the game
 function init() {
-
   // Setup the Matter engine and renderer
   setupMatter();
 
@@ -444,12 +448,11 @@ function init() {
   createGround();
   createTopWall();
 
-  // GUI 
+  // GUI
   setupGUI();
 
   // Runs the engine and renderer
   runMatter();
 }
 
-init()
-
+init();
