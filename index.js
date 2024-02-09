@@ -186,7 +186,7 @@ function removeWall() {
 }
 
 const moveWalls = () => {
-  let posY = 1;
+  let posY = 2;
   if (score === 5) {
     render.options.background = "skyblue";
     posY += 0.1;
